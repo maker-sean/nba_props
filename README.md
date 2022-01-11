@@ -6,15 +6,15 @@ python3 virtual environments allow you to create dependency spaces per project s
 
 **To create a virtual environment**:
 
-'''
+```
 $ python3 -m venv --without-pip $(pwd)/venv
-'''
 
 $ source $(pwd)/venv/bin/activate
 
 $ curl https://bootstrap.pypa.io/get-pip.py | python
 
 $ deactivate
+```
 
 **Activate virtual environment and install requirements**
 
