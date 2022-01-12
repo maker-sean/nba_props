@@ -19,6 +19,6 @@ $deactivate
 
 ```
 $source $(pwd)/venv/bin/activate
-$(venv) pip install -r requirements
+$(venv) pip install -r requirements.txt
 ```
 
