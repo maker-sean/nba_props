@@ -408,7 +408,7 @@ def main():
     #print(nba_player_json["sports"]) #list of all of the teams
 
 
-    date = "20211227"
+    date = "20220112"
     games_on_a_day(date) #should build this out to be able to take a range
 
     return
