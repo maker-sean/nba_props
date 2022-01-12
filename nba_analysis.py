@@ -2,7 +2,7 @@ from urllib.request import urlopen
 import json
 import matplotlib.pyplot as plt
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timedelta
 from pprint import pprint
 import inquirer
 
@@ -407,9 +407,28 @@ def main():
     #print(nba_player_json.keys())
     #print(nba_player_json["sports"]) #list of all of the teams
 
+    day_list = ["Yesterday", "Today", "Tomorrow"]
 
-    date = "20220112"
-    games_on_a_day(date) #should build this out to be able to take a range
+    today = datetime.today().strftime('%Y%m%d')
+    yesterday = (datetime.today() - timedelta(1)).strftime('%Y%m%d')
+    tomorrow = (datetime.today() + timedelta(1)).strftime('%Y%m%d')
+
+    actual_date_list = [yesterday, today, tomorrow]
+
+    date_question = [
+        inquirer.List(
+            "selected_date",
+            message="Which day of games do you want?",
+            choices=day_list,
+        ),
+    ]
+
+    day_selection = inquirer.prompt(date_question)
+    pprint(day_selection)
+
+    date_idx = day_list.index(day_selection["selected_date"])
+
+    games_on_a_day(actual_date_list[date_idx]) #should build this out to be able to take a range
 
     return
 
