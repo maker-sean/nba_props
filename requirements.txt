@@ -1,6 +1,6 @@
 urlopen
 matplotlib
 np
-fdatetime
+datetime
 pprint
 inquirer
