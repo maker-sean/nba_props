@@ -2,4 +2,4 @@ urlopen
 matplotlib
 np
 datetime
-inquirer
+inquirerpy
