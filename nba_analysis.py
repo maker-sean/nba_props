@@ -14,19 +14,6 @@ nba_url_v2 = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba"
 nba_url_v3 = "https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba"
 nba_url_core = "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba"
 
-var inquirer = require("inquirer");
-var isWindows = /^win/.test(process.platform);
-
-module.exports = function(questions) {
-  if (!isWindows) {
-    return questions;
-  }
-  else {
-    questions.type = 'rawlist';
-    return questions;
-  }
-}
-
 def graph_assists(team_data_dict, team_name, sorted_assist_value_list, date_list, sorted_game_id_list, player_name, sorted_minutes_list, sorted_rebounds_list, sorted_points_value_list, sorted_estimatedPossessions_list):
 
     all_game_date_list = []
