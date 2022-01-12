@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from datetime import datetime
 from pprint import pprint
-import InquirerPy as inquirer
+import inquirer
 
 #Features to add - correlations between possible data points
 #find how opponents typically do for a given parameter and how they do against specific positions
