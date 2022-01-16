@@ -1,0 +1,127 @@
+{
+  "global_information": {
+    "date": "20220115"
+  },
+  "games_list": [
+    {
+      "game_id": "401360460",
+      "game_name": "Toronto Raptors at Milwaukee Bucks",
+      "home": {
+        "team_id": "15",
+        "team_name": "Milwaukee Bucks"
+      },
+      "away": {
+        "team_id": "28",
+        "team_name": "Toronto Raptors"
+      }
+    },
+    {
+      "game_id": "401360461",
+      "game_name": "Portland Trail Blazers at Washington Wizards",
+      "home": {
+        "team_id": "27",
+        "team_name": "Washington Wizards"
+      },
+      "away": {
+        "team_id": "22",
+        "team_name": "Portland Trail Blazers"
+      }
+    },
+    {
+      "game_id": "401360462",
+      "game_name": "New York Knicks at Atlanta Hawks",
+      "home": {
+        "team_id": "1",
+        "team_name": "Atlanta Hawks"
+      },
+      "away": {
+        "team_id": "18",
+        "team_name": "New York Knicks"
+      }
+    },
+    {
+      "game_id": "401360463",
+      "game_name": "New Orleans Pelicans at Brooklyn Nets",
+      "home": {
+        "team_id": "17",
+        "team_name": "Brooklyn Nets"
+      },
+      "away": {
+        "team_id": "3",
+        "team_name": "New Orleans Pelicans"
+      }
+    },
+    {
+      "game_id": "401360464",
+      "game_name": "Philadelphia 76ers at Miami Heat",
+      "home": {
+        "team_id": "14",
+        "team_name": "Miami Heat"
+      },
+      "away": {
+        "team_id": "20",
+        "team_name": "Philadelphia 76ers"
+      }
+    },
+    {
+      "game_id": "401360465",
+      "game_name": "Cleveland Cavaliers at Oklahoma City Thunder",
+      "home": {
+        "team_id": "25",
+        "team_name": "Oklahoma City Thunder"
+      },
+      "away": {
+        "team_id": "5",
+        "team_name": "Cleveland Cavaliers"
+      }
+    },
+    {
+      "game_id": "401360466",
+      "game_name": "Chicago Bulls at Boston Celtics",
+      "home": {
+        "team_id": "2",
+        "team_name": "Boston Celtics"
+      },
+      "away": {
+        "team_id": "4",
+        "team_name": "Chicago Bulls"
+      }
+    },
+    {
+      "game_id": "401360467",
+      "game_name": "LA Clippers at San Antonio Spurs",
+      "home": {
+        "team_id": "24",
+        "team_name": "San Antonio Spurs"
+      },
+      "away": {
+        "team_id": "12",
+        "team_name": "LA Clippers"
+      }
+    },
+    {
+      "game_id": "401360468",
+      "game_name": "Los Angeles Lakers at Denver Nuggets",
+      "home": {
+        "team_id": "7",
+        "team_name": "Denver Nuggets"
+      },
+      "away": {
+        "team_id": "13",
+        "team_name": "Los Angeles Lakers"
+      }
+    },
+    {
+      "game_id": "401360469",
+      "game_name": "Orlando Magic at Dallas Mavericks",
+      "home": {
+        "team_id": "6",
+        "team_name": "Dallas Mavericks"
+      },
+      "away": {
+        "team_id": "19",
+        "team_name": "Orlando Magic"
+      }
+    }
+  ]
+}

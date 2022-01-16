@@ -1,24 +1,18 @@
+#Import List
+from datetime import datetime, timedelta
+import inquirer
+from pprint import pprint
 from urllib.request import urlopen
 import json
 import matplotlib.pyplot as plt
 import numpy as np
-from datetime import datetime, timedelta
-from pprint import pprint
-import inquirer
-from matplotlib.widgets import CheckButtons
 
-#Features to add - correlations between possible data points
-#find how opponents typically do for a given parameter and how they do against specific positions
-#create trends based on # of games
 
+#Various links to pull the necessary data, currently have to split it across 3 sites, ideally get this down to 1 current one
 nba_url_v2 = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba"
 nba_url_v3 = "https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba"
 nba_url_core = "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba"
 
-def func(label):
-    index = labels.index(label)
-    lines[index].set_visible(not lines[index].get_visible())
-    plt.draw()
 
 def graph_assists(team_data_dict, team_name, sorted_assist_value_list, date_list, sorted_game_id_list, player_name, sorted_minutes_list, sorted_rebounds_list, sorted_points_value_list, sorted_estimatedPossessions_list):
 
@@ -221,11 +215,6 @@ def create_player_data(team_data_dict, selected_team_name, specific_player_id, t
     nba_player = urlopen(nba_url_v3+"/athletes/"+specific_player_id+"/gamelog") #can add /gamelog /splits is a cool one too
     nba_player_json = json.loads(nba_player.read())
 
-    #4395625  ##athlete id
-    #401359964  ##game id
-
-    #print(nba_player_json.keys())
-
     assist_value_list = []
     date_list = []
     game_id_list = []
@@ -234,31 +223,15 @@ def create_player_data(team_data_dict, selected_team_name, specific_player_id, t
     points_value_list = []
     estimatedPossessions_list = []
 
-    #print(nba_player_json["events"].keys())
-
     for game_id in nba_player_json["events"].keys():
         game_player_stats = urlopen(nba_url_core+"/events/"+game_id+"/competitions/"+game_id+"/competitors/5/roster/"+specific_player_id+"/statistics/0?lang=en&region=us") #can add /gamelog /splits is a cool one too
-        ##https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba/events/401359964/competitions/401359964/competitors/5/roster/4395625/statistics/0?lang=en&region=us
         game_player_stats_json = json.loads(game_player_stats.read())
-
-        #game_info = urlopen(nba_url_core+"/events/"+game_id+"/competitions/"+game_id+"/competitors/8/linescores/2/3") #add /plays for play by play
-        #game_info_json = json.loads(game_info.read())
-        #print(game_info_json)
-
-        #game_boxscore = urlopen(nba_url_core+"/events/"+game_id+"/line/"+game_id)
-        #game_boxscore_json = json.loads(game_boxscore.read())
-        #print(game_boxscore_json)
 
         game_date = nba_player_json["events"][game_id]["gameDate"]
 
-        #print(nba_player_json["events"][game_id]["team"])
-        #print(game_info_json["date"], game_date) ##need to adjust date I think it has to do with start time time changes
         date_list.append(game_date[0:10])
-        #print(game_player_stats_json["splits"]["categories"][0]["stats"])
 
         sorted_game_id_list = [y for _,y,_ in sorted(zip(date_list,game_id_list,assist_value_list))]
-
-
 
         for i in game_player_stats_json["splits"]["categories"][0]["stats"]:##seems like this can be hardcoded to be "0" and not iterate through
             if i["name"] == "minutes":
@@ -285,14 +258,14 @@ def create_player_data(team_data_dict, selected_team_name, specific_player_id, t
 
     return
 
+
 def games_on_a_day(date):
 
+    #pull up the specific scoreboard for the given input date
     nba_scoreboard = urlopen(nba_url_v2+"/scoreboard?dates="+date)
     nba_scoreboard_json = json.loads(nba_scoreboard.read())
-    current_time = datetime.now().time()
 
     #find today's games and iterate through the games on a day
-
     game_id_list = []
     game_list = []
 
@@ -302,10 +275,6 @@ def games_on_a_day(date):
 
         current_game_name = game_dict["name"]
         game_list.append(game_dict["name"])
-
-        #game_hour = int(game_dict["date"][11:13]) #if game is the same hour as checking no stats will come up
-        #print(game_dict["date"],game_hour, int(current_time.hour),game_hour>current_time.hour)
-        #print(current_game_name, current_game_id)
 
     game_question = [
         inquirer.List(
@@ -340,6 +309,7 @@ def games_on_a_day(date):
 
         season_data = urlopen(nba_url_v2+"/teams/"+team_id+"/schedule")
         season_data_json = json.loads(season_data.read())
+        print(season_data_json["team"])
 
         team_data_dict[team_name] = {}
         team_data_dict[team_name]["id"] = team_id
@@ -353,14 +323,12 @@ def games_on_a_day(date):
             team_data_dict[team_name]["games"][i_count]["date"] = g["date"]
             i_count += 1
 
-
         for player_info in team_data_json["athletes"]:
 
             team_list_idx.append(i)
             team_name_list.append(team_name)
             team_id_list.append(team_id)
 
-            #print(player_info["fullName"],player_info["id"])
             player_id_list.append(player_info["id"])
             player_name_list.append(player_info["fullName"])
 
@@ -380,10 +348,6 @@ def games_on_a_day(date):
     team_list_idx_selected = team_list_idx[selected_player_index]
     selected_team_name = team_name_list[selected_player_index]
 
-    #if team_list_idx_selected == 1:
-    #    c = team_list_idx.count(0)
-    #    true_selected_idx = selected_player_index - c
-
     create_player_data(team_data_dict, selected_team_name, player_id_list[selected_player_index], team_name_list[selected_player_index], player_name_list[selected_player_index])
 
 
@@ -391,31 +355,7 @@ def games_on_a_day(date):
 
 def main():
 
-    #Read in the up to date collect score_board
-    nba_scoreboard = urlopen(nba_url_v2+"/scoreboard/400488962") #for a dofferent date add ?date=20191121
-    #add /scoreboard/:gameid to get info on a specific game
-    nba_scoreboard_json = json.loads(nba_scoreboard.read())
-    #print(nba_scoreboard_json["competitions"][0].keys())
-    #print(nba_scoreboard_json["events"][0].keys()) #each value in the list is for each game for the day
-
-    #print(nba_scoreboard_json["day"]["date"]) gives todays date it seems
-    #print(nba_scoreboard_json["leagues"]) #seems to give date of game, infor on 2021 season
-    #print(nba_scoreboard_json["season"]) #give gurrent season year
-    #print(nba_scoreboard_json["events"][5]) #iterate through events for the games for today
-
-    #nba_stats = urlopen(nba_url_v2+"/statistics/athletes/4403") #really not much useful information
-    #nba_stats_json = json.loads(nba_stats.read())
-    #print(nba_stats_json)
-
-    #nba_teams = urlopen(nba_url+"/teams")
-    #nba_teams_json = json.loads(nba_teams.read())
-    #print(nba_teams_json["sports"]) #list of all of the teams
-
-    #nba_player = urlopen(nba_url_v3+"/athletes/4432809/gamelog") #can add /gamelog
-    #nba_player_json = json.loads(nba_player.read())
-    #print(nba_player_json.keys())
-    #print(nba_player_json["sports"]) #list of all of the teams
-
+    #Find what day the user wants games for
     day_list = ["Yesterday", "Today", "Tomorrow"]
 
     today = datetime.today().strftime('%Y%m%d')
@@ -437,7 +377,8 @@ def main():
 
     date_idx = day_list.index(day_selection["selected_date"])
 
-    games_on_a_day(actual_date_list[date_idx]) #should build this out to be able to take a range
+    #Go ahead and find the necessary information for the dat
+    games_on_a_day(actual_date_list[date_idx])
 
     return
 
